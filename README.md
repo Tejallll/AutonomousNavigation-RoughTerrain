@@ -1,36 +1,13 @@
 # Autonomous Navigation for Vehicles in Rough Terrain
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
 
 
 
 
 <div style="display: flex; align-items: center;">
   <img src="./jackal.jpeg" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
-  <p>.</p>
+  <p></p>
 </div>
 
 
@@ -48,23 +25,21 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
+   
+   <li><a href="#built-with">Built With</a></li>
+      
+  <li><a href="#robots-description">Robots Description</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#demo-and-usage">Demo and Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#rqt-graph">RQT GRAPH</a></li>
+    <li><a href="#getting-started">Future Implementation</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#reference-papers">Reference Papers</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -97,7 +72,7 @@ Contributors :
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Robots Descrption:
+## Robots Description:
 Our experimentation involved utilizing three distinct robots, each deployed in different environments, to thoroughly test the effectiveness of our algorithms. Each robot was equipped with specific sensors, enabling them to navigate and interact with their respective environments efficiently. Below, we provide a description of each robot, along with the sensors they were equipped with:
 
 1. **JACKAL**:
@@ -137,18 +112,15 @@ Please refer to the detailed installation instructions provided in the the READM
 
 <!-- USAGE EXAMPLES -->
 ## Demo and Usage:
- ![Download the  ROS simulation](https://github.com/git-suwalkaaditya/RoughTerrain-IVR2/blob/noetic/stereocamera_map.webm)
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-![Download the MATLAB simulation](https://github.com/git-suwalkaaditya/RoughTerrain-IVR2/blob/noetic/matlab_demo.mp4)
-<p align="right">(<a href="#top">back to top</a>)</p>
-1. Setup the required bot by following the steps in the respective directory.
+1. Setup the required bot by following the steps in the respective directory. 
 2. Mount the required sensors on the bot.
-   eg -
+   eg 
    
 ```
    export JACKAL_URDF_EXTRAS=$HOME/Desktop/realsense.urdf.xacro
 ```
+
 3. Launch the required world file and the gmapping algorithm.
    eg -
     
@@ -157,11 +129,26 @@ Please refer to the detailed installation instructions provided in the the READM
    roslaunch jackal_viz view_robot.launch
    roslaunch jackal_navigation gmapping_demo.launch 
 ```
-   
-4. Create and download the .pgm file of the map of the world.
-5. Open Matlab Scripts and establish the connection between the two systems to set up co-simulation.
-6. Run the .mlx files in order to view the results
+The following commands launches the world file, RVIZ and the gmapping algorithm required for the simulation and mapping
 
+4. Create and download the .pgm file of the map of the world.
+   eg -
+    
+```
+   rosrun map_server map_saver
+```
+
+5. Open Matlab Scripts and establish the connection between the two systems to set up co-simulation.<br>
+6. Run the .mlx files in order according to the readme file of MATLAB Scripts to view the results<br>
+<br>
+<br>
+
+https://github.com/git-suwalkaaditya/RoughTerrain-IVR2/assets/108211492/6de0ee97-a1fb-4877-9962-410aa43c251b
+
+
+
+
+https://github.com/git-suwalkaaditya/RoughTerrain-IVR2/assets/108211492/2e5013a4-7434-4b2c-88c8-2b069c11f5ca
 
 
 
@@ -177,15 +164,15 @@ Please refer to the detailed installation instructions provided in the the READM
 
 ## RQT GRAPH
 <div style="display: flex; align-items: center;">
-  <img src="./rosgraph.png" alt="Jackal Robot" width="1000" length="1000" style="float: centre; margin-right: 20px;">
+  <img src="./rosgraphmatlab.png" alt="Jackal Robot" width="1000" length="1000" style="float: centre; margin-right: 20px;">
   <p>.</p>
 </div>
 
 ## FUTURE IMPLEMENTATION
 1. Implementing dynamic obstacle avoidance.
-2. Enhance mapping of rough terrain.
-3. Changing the existing control system of the bots
-4. Using the concept of reinforcement learning.
+2. Enhance mapping of rough terrain by Triangular Mesh Map.
+3. Changing the existing Pure Pursuit Controller with a Model Predictive Controller.
+4. Exploring Toolboxes like Parallel Computing and LIDAR.
 
 
 <!-- CONTRIBUTING -->
@@ -204,6 +191,17 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<br>
+
+## Reference Papers
+1. [MarsSim: A High-Fidelity Physical and Visual Simulation for Mars Rovers](https://ieeexplore.ieee.org/document/9894666)
+2. [OctoMap: An Efficient Probabilistic 3D Mapping Framework Based on Octrees](https://courses.cs.washington.edu/courses/cse571/16au/slides/hornung13auro.pdf)
+3. [Indoor mapping using gmapping on embedded system](https://ieeexplore.ieee.org/document/8324786)
+4. [Path planning using Matlab-ROS integration applied to mobile robots](https://www.researchgate.net/publication/317660787_Path_planning_using_Matlab-ROS_integration_applied_to_mobile_robots)
+5. [Efficient Exploration Algorithms for Rough Terrain Modeling Using Triangular Mesh Maps](https://ieeexplore.ieee.org/abstract/document/4681352)
+6. [Model Predictive Control Design: New Trends and Tools](https://ieeexplore.ieee.org/document/4178103)
+
+<br>
 
 <!-- CONTACT -->
 ## Contact
