@@ -1,55 +1,97 @@
+## Jackal
+This directory includes all files related to Clearpath Jackal robot including sensor integration, navigation and mapping.  
 
-# Turtlebot
-This is project inspired from the Mathworks Matlab - Excellence in Innovation Repository :
-https://github.com/Autonomousanz/Autonomous-Navigation-in-Rough-Terrain.git
-## Installation :
-You can install turtlebot by following
-[Turtlebot3 Installation Tutorial.](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
+## Prerequisites:
+Firstly, clone this repository.<br>
 
-SLAM Simulation
-1. Launch Simulation World -<br>
-`$ export TURTLEBOT3_MODEL=burger`<br>
-`$ roslaunch turtlebot3_gazebo turtlebot3_world.launch`: 
-3. Run SLAM Node -<br>
-`$ export TURTLEBOT3_MODEL=burger`<br>
-`$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping`
-4. Run Teleoperation Node -<br>
-  `$ export TURTLEBOT3_MODEL=burger`<br>
-`$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch`
-6. Save Map -<br>
-`$ rosrun map_server map_saver -f ~/map`
+Type the following commands in the terminal to install the required dependencies:
+```
+sudo apt-get install ros-noetic-jackal-simulator
+sudo apt-get install ros-noetic-jackal-*
+sudo apt-get install ros-noetic-velodyne-*
+sudo apt-get install ros-noetic-geodesy ros-noetic-pcl-ros ros-noetic-nmea-msgs ros-noetic-libg2o
+sudo pip install ProgressBar2
+sudo apt-get install ros-noetic-velodyne
+sudo apt-get install ros-noetic-velodyne-simulator
+sudo apt-get install ros-noetic-geographic-info
+sudo apt-get install ros-noetic-robot-localization
+sudo apt-get install ros-noetic-twist-mux
+sudo apt-get install ros-noetic-pointcloud-to-laserscan
+sudo apt-get install ros-noetic-teb-local-planner
+rosdep install teb_local_planner
+sudo apt-get install ros-noetic-stage-ros
+```
+<br>
 
-## Description :
-The project is an experiment of finding the shortest path to a given set of start and end points namely waypoints using various Path planning algorithms in a plane terrain and then deploying these waypoints on the turtlebot robot. Mainly the tools used were MATLAB for generating the waypoints using a map of the given environment in pgm file and then converting it into occupancyMap or binaryoccupancyMap, further feeding this shortest path to a robot in Gazebo ROS simulation using the Simulink model.
+Clone the following repositories 
+```
+git clone https://github.com/jackal/jackal.git
+git clone https://github.com/jackal/jackal_desktop.git
+git clone https://github.com/jackal/jackal_simulator.git
+git clone https://github.com/OctoMap/octomap_mapping.git
+```
 
-## Procedure :
-Following are the steps taken for running this project -
-1. Below is the environment suitable for the application - :
+Follow the steps to install the worlds
+```
+git clone https://github.com/clearpathrobotics/cpr_gazebo.git
+```
 
+## Sensor Mounting
+ Refer to the following link to access various sensors - [Sensors](https://www.clearpathrobotics.com/assets/guides/melodic/jackal/description.html)
+ <div style="display: flex; align-items: center;">
+  <img src="./1.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
+</div>
 <div style="display: flex; align-items: center;">
-  <img src="./worldgh.jpeg" alt="Jackal Robot" width="1000" length="1000" style="float: centre; margin-right: 20px;">
-  <p>.</p>
+  <img src="./2.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
+</div>
+<div style="display: flex; align-items: center;">
+  <img src="./3.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
+</div>
+<div style="display: flex; align-items: center;">
+  <img src="./4.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
 </div>
 
-2. Launching the robot in this environment using the launch file which contains the world file location in the catkin workspace.<br>
-`$ export TURTLEBOT3_MODEL=burger`<br>
-`$ roslaunch turtlebot3_gazebo turtlebot3_world.launch`: 
-  
-3. Generate a pgm file through slam mapping of this environment.
-
-
-
-4. Once the pgm file or occupancyMap is available, use a matlab mlx script of the planner that we want to test (A*, RRT planner, RRT* planner, Hybride A*) to generate a path using particular algorithm.
+## Visualisation
+1. Depth Camera
+   <div style="display: flex; align-items: center;">
+  <img src="./depthcam.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
+</div>
+3. Stereo Camera
 <div style="display: flex; align-items: center;">
-  <img src="./hex.jpeg" alt="Jackal Robot" width="1000" length="1000" style="float: centre; margin-right: 20px;">
-  <p>.</p>
+  <img src="./octomap.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
+</div>
+4. 3D Lidar - Velodyne
+<div style="display: flex; align-items: center;">
+  <img src="./velodyne.png" alt="Jackal Robot" width="500" style="float: centre; margin-right: 20px;">
+  <p></p>
 </div>
 
-<div style="display: flex; align-items: center;">
-  <img src="./shapes.jpeg" alt="Jackal Robot" width="1000" length="1000" style="float: centre; margin-right: 20px;">
-  <p>.</p>
-</div>
+## OCTOMAP
+1. Probabilistic Mapping Framework: OctoMap is a probabilistic 3D mapping framework used in robotics and computer graphics. It represents environments as an octree, assigning probabilities to voxels (3D grid 
+   cells) to indicate occupancy likelihood.
 
+2. Sensor Fusion and Noise Handling: OctoMap excels at fusing data from multiple sensors, such as lidar and depth cameras. Its probabilistic approach effectively handles sensor noise and uncertainties, resulting 
+   in accurate and adaptable maps.
 
-5. Once the waypoints were created, the final point was designated as the goal of the trajectory. This goal point needed to be converted back into Gazebo coordinates. To achieve this, the mathworks path following with obstacle avoidance slx file was employed. This file took the goal point as input and generated the corresponding velocity upon connection with the Gazebo simulation. To establish a connection with the Turtlebot in the Gazebo environment, the command "rosinit" was initialized in the command line of Matlab, which set up the ROS master connection.
-6.With everything in place, the robot commenced traversing the given path and aimed to reach the goal set within the Gazebo environment once the Simulink model ran successfully.
+3. Collision-Free Path Planning: By distinguishing between occupied and free spaces, OctoMap enables collision-free navigation. It's particularly valuable for robots moving in cluttered or dynamic environments, 
+   aiding in safe path planning.
+
+4. Unmapped Area Exploration: OctoMap identifies areas with uncertain occupancy, signaling unexplored regions. This encourages robots to autonomously explore and map unknown territories, contributing to 
+   comprehensive environment mapping.
+
+5. Memory and Efficiency: OctoMap balances detailed representation with memory efficiency. It optimizes storage by utilizing an octree structure, allowing for high-resolution maps without excessive memory usage. 
+   Efficient access to map data supports real-time applications
+## Steps to save octomap
+```
+roslaunch octomap_server octomap_mapping.launch
+rosrun octomap_server octomap_saver my_octomap.bt
+```
+<br>
+
+https://github.com/git-suwalkaaditya/RoughTerrain-IVR2/assets/108211492/7c40de8f-0589-4d52-a075-aeca3fb8680b
